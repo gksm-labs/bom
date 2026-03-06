@@ -1,0 +1,37 @@
+<div
+  data-controller="font-size"
+  class="fixed bottom-[16px] right-[25px] flex items-center z-40 text-[20px] gap-[12px] rounded-md bg-red p-[8px] font-medium"
+>
+  <button
+    type="button"
+    data-font-size-target="button"
+    data-action="click->font-size#apply"
+    data-font-size-scale-param="0.85"
+    aria-label="Menšie písmo"
+    class="cursor-pointer text-[0.85em] text-white transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-red rounded"
+  >
+    A
+  </button>
+
+  <button
+    type="button"
+    data-font-size-target="button"
+    data-action="click->font-size#apply"
+    data-font-size-scale-param="1"
+    aria-label="Normálne písmo"
+    class="cursor-pointer text-[1em] text-white transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-red rounded"
+  >
+    A
+  </button>
+
+  <button
+    type="button"
+    data-font-size-target="button"
+    data-action="click->font-size#apply"
+    data-font-size-scale-param="1.15"
+    aria-label="Väčšie písmo"
+    class="cursor-pointer text-[1.15em] text-white transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-red rounded"
+  >
+    A
+  </button>
+</div>
