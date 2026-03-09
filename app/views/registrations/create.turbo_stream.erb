@@ -1,0 +1,17 @@
+<%= turbo_stream.replace "raceRegistrationForm" do %>
+  <div class="rounded-2xl bg-white p-6 sm:p-10 shadow-sm border border-green/20">
+    <div class="mx-auto max-w-2xl text-center">
+      <h3 class="font-display font-bold text-4xl leading-none text-primary sm:text-5xl">
+        Úspešne zaregistrovaný!
+      </h3>
+      <p class="mt-4 text-base text-slate-700 sm:text-lg">
+        <span class="font-semibold text-primary"><%= @registration.first_name %></span>,
+        je to tam! Úspešne ste sa zaregistrovali a informácie vám boli zaslané na
+        <span class="font-semibold text-primary"><%= @registration.email %></span>.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="<%= root_path %>" class="btn-red !bg-primary">Späť na hlavnú stránku</a>
+      </div>
+    </div>
+  </div>
+<% end %>
