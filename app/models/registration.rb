@@ -3,6 +3,7 @@
 # Table name: registrations
 #
 #  id            :bigint           not null, primary key
+#  bib_number    :integer
 #  birth_date    :date             not null
 #  category      :string           not null
 #  city          :string           not null
@@ -22,7 +23,8 @@
 #
 # Indexes
 #
-#  index_registrations_on_edition_id  (edition_id)
+#  index_registrations_on_edition_id                 (edition_id)
+#  index_registrations_on_edition_id_and_bib_number  (edition_id,bib_number) UNIQUE
 #
 # Foreign Keys
 #
@@ -52,12 +54,15 @@ class Registration < ApplicationRecord
     age = edition.date.year - birth_date.year
     prefix = gender == "male" ? "M" : "F"
 
-    self.category = age < 40 ? "#{prefix}39" : "#{prefix}40+"
+    self.category = case age
+    when 0..39  then "#{prefix}39"
+    when 40..49 then "#{prefix}40"
+    when 50..59 then "#{prefix}50"
+    else             "#{prefix}60+"
+    end
   end
 
   def edition_must_be_open_for_registration
-    unless edition&.registration_open?
-      errors.add(:base, :registration_closed)
-    end
+    errors.add(:base, :registration_closed) unless edition&.registration_open?
   end
 end

@@ -14,6 +14,7 @@ class CreateRegistrations < ActiveRecord::Migration[8.1]
       t.string :club
       t.string :t_shirt_size, null: false
 
+      t.integer :bib_number
       t.boolean :gdpr_consent, null: false, default: false
       t.boolean :terms_consent, null: false, default: false
 

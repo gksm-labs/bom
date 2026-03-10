@@ -8,9 +8,12 @@ class CreateEditions < ActiveRecord::Migration[8.1]
       t.integer :max_capacity, default: 500
       t.decimal :entry_fee, precision: 8, scale: 2, default: 10.00
 
+      t.boolean :published, default: false, null: false
+
       t.timestamps
     end
 
     add_index :editions, :year, unique: true
+    add_index :editions, :published
   end
 end

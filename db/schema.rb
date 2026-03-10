@@ -19,14 +19,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_105624) do
     t.datetime "date", null: false
     t.decimal "entry_fee", precision: 8, scale: 2, default: "10.0"
     t.integer "max_capacity", default: 500
+    t.boolean "published", default: false, null: false
     t.datetime "registration_ends_at"
     t.datetime "registration_starts_at"
     t.datetime "updated_at", null: false
     t.integer "year", null: false
+    t.index ["published"], name: "index_editions_on_published"
     t.index ["year"], name: "index_editions_on_year", unique: true
   end
 
   create_table "registrations", force: :cascade do |t|
+    t.integer "bib_number"
     t.date "birth_date", null: false
     t.string "category", null: false
     t.string "city", null: false
@@ -43,6 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_105624) do
     t.string "t_shirt_size", null: false
     t.boolean "terms_consent", default: false, null: false
     t.datetime "updated_at", null: false
+    t.index ["edition_id", "bib_number"], name: "index_registrations_on_edition_id_and_bib_number", unique: true
     t.index ["edition_id"], name: "index_registrations_on_edition_id"
   end
 

@@ -6,7 +6,8 @@ edition = Edition.create!(
   registration_starts_at: Time.zone.now.beginning_of_day - 1.week, # Registrácia beží už týždeň
   registration_ends_at: Time.zone.local(current_year, 6, 18, 23, 59, 59),
   max_capacity: 500,
-  entry_fee: 15.00
+  entry_fee: 15.00,
+  published: true
 )
 
 edition.schedule_items.create!([

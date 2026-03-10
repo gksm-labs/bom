@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  before_action :set_current_edition
+  helper_method :current_edition
 
   private
 
-  def set_current_edition
-    @current_edition = Edition.current
+  def current_edition
+    @current_edition ||= Edition.current
   end
 end

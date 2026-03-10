@@ -8,6 +8,7 @@
 #  date                   :datetime         not null
 #  entry_fee              :decimal(8, 2)    default(10.0)
 #  max_capacity           :integer          default(500)
+#  published              :boolean          default(FALSE), not null
 #  registration_ends_at   :datetime
 #  registration_starts_at :datetime
 #  year                   :integer          not null
@@ -16,7 +17,8 @@
 #
 # Indexes
 #
-#  index_editions_on_year  (year) UNIQUE
+#  index_editions_on_published  (published)
+#  index_editions_on_year       (year) UNIQUE
 #
 one:
   name: MyString

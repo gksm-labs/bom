@@ -8,9 +8,9 @@
 
   <div class="mt-10 grid gap-4 sm:gap-5">
     <div class="rounded-2xl bg-white p-5 sm:p-6">
-      <% if @current_edition&.schedule_items&.any? %>
+      <% if current_edition&.schedule_items&.any? %>
         <ol class="space-y-4">
-          <% @current_edition.schedule_items.each do |item| %>
+          <% current_edition.schedule_items.each do |item| %>
             <li class="flex items-start gap-4">
               <div class="min-w-20 rounded-md bg-<%= item.badge_color %> px-3 py-1.5 text-center text-sm font-bold text-white">
                 <%= item.start_time.strftime("%H:%M") %>

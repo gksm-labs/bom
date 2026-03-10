@@ -2,12 +2,12 @@ class RegistrationsController < ApplicationController
   before_action :ensure_registration_open
 
   def new
-    @registration = @current_edition.registrations.build
+    @registration = current_edition.registrations.build
     @starting_step = 1
   end
 
   def create
-    @registration = @current_edition.registrations.build(registration_params)
+    @registration = current_edition.registrations.build(registration_params)
 
     if @registration.save
       respond_to do |format|
@@ -23,9 +23,9 @@ class RegistrationsController < ApplicationController
   private
 
   def ensure_registration_open
-    unless @current_edition&.registration_open?
+    unless current_edition&.registration_open?
+      @registration = Registration.new
       @registration_closed = true
-      @starting_step = 1
       render :new, status: :forbidden
     end
   end
@@ -39,16 +39,10 @@ class RegistrationsController < ApplicationController
   end
 
   def calculate_starting_step(registration)
-    err_keys = registration.errors.map(&:attribute)
-    step1_fields = [ :first_name, :last_name, :birth_date, :email, :phone, :gender, :city ]
-    step2_fields = [ :discipline, :t_shirt_size, :club ]
+    err_keys = registration.errors.attribute_names
 
-    if err_keys.intersect?(step1_fields)
-      1
-    elsif err_keys.intersect?(step2_fields)
-      2
-    else
-      3
-    end
+    return 1 if (err_keys & [ :first_name, :last_name, :birth_date, :email, :phone, :gender, :city ]).any?
+    return 2 if (err_keys & [ :discipline, :t_shirt_size, :club ]).any?
+    3
   end
 end

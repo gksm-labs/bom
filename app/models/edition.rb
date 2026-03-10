@@ -6,6 +6,7 @@
 #  date                   :datetime         not null
 #  entry_fee              :decimal(8, 2)    default(10.0)
 #  max_capacity           :integer          default(500)
+#  published              :boolean          default(FALSE), not null
 #  registration_ends_at   :datetime
 #  registration_starts_at :datetime
 #  year                   :integer          not null
@@ -14,7 +15,8 @@
 #
 # Indexes
 #
-#  index_editions_on_year  (year) UNIQUE
+#  index_editions_on_published  (published)
+#  index_editions_on_year       (year) UNIQUE
 #
 class Edition < ApplicationRecord
   has_many :registrations, dependent: :restrict_with_error
@@ -24,7 +26,8 @@ class Edition < ApplicationRecord
   validates :year, uniqueness: true
 
   def self.current
-    find_by(year: Date.current.year) || order(date: :desc).first
+    where(published: true).where("date >= ?", Date.current).order(:date).first ||
+      where(published: true).order(date: :desc).first
   end
 
   def registration_open?
