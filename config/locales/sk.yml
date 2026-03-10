@@ -40,11 +40,11 @@ sk:
             gender:
               inclusion: "musí byť jedna z možností"
             discipline:
-              inclusion: "musí být jedna z možností"
+              inclusion: "musí byť jedna z možností"
             category:
-              inclusion: "musí být jedna z možností"
+              inclusion: "musí byť jedna z možností"
             t_shirt_size:
-              inclusion: "musí být jedna z možností"
+              inclusion: "musí byť jedna z možností"
 
             gdpr_consent:
               accepted: "je pre registráciu nevyhnutný"
