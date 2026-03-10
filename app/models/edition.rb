@@ -9,6 +9,7 @@
 #  published              :boolean          default(FALSE), not null
 #  registration_ends_at   :datetime
 #  registration_starts_at :datetime
+#  registrations_count    :integer          default(0), not null
 #  year                   :integer          not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -42,6 +43,6 @@ class Edition < ApplicationRecord
   end
 
   def registered_count
-    registrations.count
+    registrations.size
   end
 end

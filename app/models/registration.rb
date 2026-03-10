@@ -31,7 +31,7 @@
 #  fk_rails_...  (edition_id => editions.id)
 #
 class Registration < ApplicationRecord
-  belongs_to :edition
+  belongs_to :edition, counter_cache: true
 
   enum :gender, { male: "M", female: "F" }, validate: true
   enum :discipline, { main_10km: "10km", hobby_5km: "5km" }, validate: true
