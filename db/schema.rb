@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_135421) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_142632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "cms_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "parent_category_id"
+    t.string "slug", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_category_id"], name: "index_cms_categories_on_parent_category_id"
+    t.index ["slug"], name: "index_cms_categories_on_slug", unique: true
+  end
+
+  create_table "cms_pages", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.boolean "published", default: false, null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_cms_pages_on_category_id"
+    t.index ["slug"], name: "index_cms_pages_on_slug", unique: true
+  end
 
   create_table "editions", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -62,6 +84,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_135421) do
     t.index ["edition_id"], name: "index_schedule_items_on_edition_id"
   end
 
+  add_foreign_key "cms_categories", "cms_categories", column: "parent_category_id"
+  add_foreign_key "cms_pages", "cms_categories", column: "category_id"
   add_foreign_key "registrations", "editions"
   add_foreign_key "schedule_items", "editions"
 end

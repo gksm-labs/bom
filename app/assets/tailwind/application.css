@@ -51,4 +51,33 @@
     .mobile-link {
         @apply block hover:text-green transition-colors;
     }
+
+    /* CMS Content Typography */
+    .cms-content {
+        @apply text-base text-slate-700 leading-loose sm:text-lg;
+    }
+    .cms-content h2 {
+        @apply font-display text-3xl font-bold tracking-tight text-primary mt-12 mb-6 sm:text-4xl;
+    }
+    .cms-content h3 {
+        @apply font-semibold text-2xl text-slate-900 mt-10 mb-4;
+    }
+    .cms-content p {
+        @apply mb-6;
+    }
+    .cms-content ul {
+        @apply list-disc pl-6 mb-6 space-y-2 text-slate-700;
+    }
+    .cms-content ol {
+        @apply list-decimal pl-6 mb-6 space-y-2 marker:font-bold marker:text-primary;
+    }
+    .cms-content li {
+        @apply pl-2;
+    }
+    .cms-content a {
+        @apply font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary transition-all;
+    }
+    .cms-content strong {
+        @apply font-bold text-slate-900;
+    }
 }
