@@ -1,1 +1,54 @@
 @import "tailwindcss";
+
+@theme {
+    --color-background: #fbfbfb;
+    --color-foreground: #707070;
+    --color-primary: #042e6f;
+    --color-red: #c60043;
+    --color-green: #91a859;
+
+    --font-display: "Bebas Neue", sans-serif;
+    --font-sans: "Montserrat", sans-serif;
+    --font-mono: "Roboto", monospace;
+
+    --breakpoint-md: 900px;
+}
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+
+    :focus-visible {
+        @apply outline-none ring-2 ring-green;
+    }
+}
+
+@layer components {
+    /* Layout helpers */
+    .section-container {
+        @apply mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24;
+    }
+
+    .heading-primary {
+        @apply font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl;
+    }
+
+    /* Buttons */
+    .btn-red {
+        @apply inline-flex items-center justify-center rounded-md bg-red px-5 py-2.5 font-bold text-white transition hover:opacity-95;
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center rounded-md bg-white/15 px-5 py-2.5 font-bold text-white transition hover:bg-white/25;
+    }
+
+    /* Navigation Links */
+    .nav-link {
+        @apply relative inline-block transition-colors duration-300 hover:text-green before:absolute before:-bottom-1 before:left-1/2 before:h-0.5 before:w-0 before:-translate-x-1/2 before:origin-center before:bg-green before:content-[''] before:transition-all before:duration-300 hover:before:w-full;
+    }
+
+    .mobile-link {
+        @apply block hover:text-green transition-colors;
+    }
+}

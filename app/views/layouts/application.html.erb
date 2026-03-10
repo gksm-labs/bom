@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
   <head>
-    <title><%= content_for(:title) || "Bom" %></title>
+    <title><%= content_for(:title) || "Beh okolo Modry" %></title>
+    <meta name="view-transition" content="same-origin" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Bom">
+    <meta name="application-name" content="Beh okolo Modry">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -18,14 +19,23 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-background text-foreground font-sans">
+    <%= render "shared/header" %>
+
+    <main>
       <%= yield %>
     </main>
+
+    <%= render "shared/footer" %>
+    <%= render "shared/accessibility_menu" %>
   </body>
 </html>

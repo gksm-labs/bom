@@ -112,6 +112,8 @@ GEM
       railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
+    enum_help (0.0.20)
+      activesupport (>= 3.0.0)
     erb (6.0.2)
     erubi (1.13.1)
     et-orbi (1.4.0)
@@ -405,6 +407,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv-rails
+  enum_help (~> 0.0.20)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder

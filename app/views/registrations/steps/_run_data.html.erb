@@ -1,0 +1,9 @@
+<div data-form-stepper-target="panel" class="step-panel hidden">
+  <h3 class="font-display font-bold text-2xl text-primary">Údaje o behu</h3>
+  <div class="mt-4 grid gap-4 sm:grid-cols-2">
+    <%= f.tailwind_input :discipline, type: :select, collection: Registration.disciplines_i18n.invert %>
+    <%= f.tailwind_input :category, type: :select, collection: Registration.categories_i18n.invert %>
+    <%= f.tailwind_input :t_shirt_size, type: :select, collection: Registration.t_shirt_sizes_i18n.invert %>
+    <%= f.tailwind_input :club, required: false %>
+  </div>
+</div>

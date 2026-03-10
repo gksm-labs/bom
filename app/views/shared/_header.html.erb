@@ -1,0 +1,81 @@
+<header
+  class="sticky top-0 z-50 bg-primary text-white shadow-md"
+  data-controller="mobile-menu"
+  data-action="keydown.esc@window->mobile-menu#close"
+>
+  <nav class="mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
+    <a href="/">
+      <%= image_tag "logo.png", alt: "Beh okolo Modry", class: "h-12 w-auto" %>
+    </a>
+
+    <ul class="hidden items-center gap-6 font-semibold md:flex">
+      <% navigation_links.each do |link| %>
+        <li>
+          <%= link_to link[:name], link[:path], class: "nav-link", data: { turbo: false } %>
+        </li>
+      <% end %>
+    </ul>
+
+    <a href="/registration" class="btn-red group relative hidden overflow-hidden md:inline-flex">
+      <div class="pointer-events-none absolute inset-y-0 -left-[40%] w-1/3 -skew-x-12 bg-white/30 group-hover:translate-x-[450%] group-hover:transition-transform group-hover:duration-800 group-hover:ease-out"></div>
+      <span class="relative z-10">Registrácia</span>
+    </a>
+
+    <button
+      type="button"
+      data-mobile-menu-target="button"
+      data-action="click->mobile-menu#open"
+      aria-controls="mobile-menu-overlay"
+      aria-label="Otvoriť menu"
+      aria-expanded="false"
+      class="rounded-md border-2 border-white/30 hover:border-white hover:bg-white hover:text-primary font-bold transition-colors duration-100 px-3 py-2 text-sm md:hidden"
+    >
+      Menu
+    </button>
+
+    <div
+      id="mobile-menu-overlay"
+      data-mobile-menu-target="menu"
+      aria-hidden="true"
+      inert
+      class="pointer-events-none fixed inset-0 bg-primary/95 backdrop-blur-sm opacity-0 transition-opacity duration-100 md:hidden"
+    >
+      <div
+        data-mobile-menu-target="panel"
+        class="mx-auto flex h-full max-w-6xl translate-y-6 flex-col px-6 pb-8 pt-6 text-white transition-transform duration-300"
+      >
+        <div class="flex items-center justify-between">
+          <a href="/">
+            <%= image_tag "logo.png", alt: "Beh okolo Modry", class: "h-12 w-auto" %>
+          </a>
+          <button
+            type="button"
+            data-action="click->mobile-menu#close"
+            aria-label="Zavrieť menu"
+            class="rounded-md border-2 border-white/30 hover:border-white hover:bg-white hover:text-primary font-bold transition-colors duration-100 px-3 py-2 text-sm md:hidden"
+          >
+            Zavrieť
+          </button>
+        </div>
+
+        <ul class="mt-10 space-y-4 text-3xl font-semibold font-sans">
+          <% navigation_links.each do |link| %>
+            <li>
+              <%= link_to link[:name], link[:path],
+                          class: "mobile-link",
+                          data: { turbo: false, action: "click->mobile-menu#close" } %>
+            </li>
+          <% end %>
+        </ul>
+
+        <a
+          href="/registration"
+          data-action="click->mobile-menu#close"
+          class="btn-red mt-auto w-full !py-3 text-base"
+        >
+          Registrácia
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>

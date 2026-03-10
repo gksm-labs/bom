@@ -1,0 +1,65 @@
+sk:
+  helpers:
+    select:
+      prompt: "Vyberte"
+
+  activerecord:
+    attributes:
+      registration:
+        first_name: "Meno"
+        last_name: "Priezvisko"
+        birth_date: "Dátum narodenia"
+        email: "E-mail"
+        phone: "Telefón"
+        gender: "Pohlavie"
+        city: "Mesto/Obec"
+        discipline: "Disciplína"
+        category: "Kategória"
+        t_shirt_size: "Veľkosť trička"
+        club: "Klub / tím"
+        gdpr_consent: "Súhlas so spracovaním osobných údajov (GDPR)"
+        terms_consent: "Súhlas s pravidlami a propozíciami podujatia"
+
+    errors:
+      models:
+        registration:
+          attributes:
+            first_name:
+              blank: "nemôže byť prázdne"
+            last_name:
+              blank: "nemôže byť prázdne"
+            city:
+              blank: "nemôže byť prázdne"
+            birth_date:
+              blank: "nemôže ostať prázdny"
+            email:
+              blank: "nemôže ostať prázdny"
+            phone:
+              blank: "nemôže ostať prázdny"
+
+            gender:
+              inclusion: "musí byť jedna z možností"
+            discipline:
+              inclusion: "musí byť jedna z možností"
+            category:
+              inclusion: "musí byť jedna z možností"
+            t_shirt_size:
+              inclusion: "musí byť jedna z možností"
+
+            gdpr_consent:
+              accepted: "je pre registráciu nevyhnutný"
+            terms_consent:
+              accepted: "je pre registráciu nevyhnutný"
+
+  enums:
+    registration:
+      gender:
+        male: "Muž"
+        female: "Žena"
+        unstated: "Nechcem uviesť"
+      discipline:
+        main_10km: "10 km Hlavný beh"
+        hobby_5km: "5 km Hobby beh"
+      category:
+        men: "Muži"
+        women: "Ženy"

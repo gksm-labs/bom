@@ -1,0 +1,55 @@
+<div class="relative mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+  <div class="p-0 sm:p-1 lg:p-2">
+    <div class="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10">
+      <div class="order-1 p-0 sm:p-1 lg:p-2">
+        <h1 class="mt-2 max-w-4xl font-display text-5xl leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          Beh okolo Modry
+        </h1>
+
+        <div class="mt-5 flex flex-col gap-4 rounded-2xl bg-white/5 p-4 sm:max-w-xl sm:p-5">
+          <div
+            class="flex flex-wrap gap-1 items-center justify-between pb-1"
+            data-controller="countdown"
+            data-countdown-date-value="2026-06-20T09:00:00"
+          >
+            <span class="text-sm font-medium text-white/80">Štartuje o</span>
+
+            <strong
+              data-countdown-target="display"
+              class="rounded-md bg-white/15 px-2 py-1 text-lg font-semibold text-white sm:text-xl font-mono tracking-wider"
+            >
+              00d 00h 00m 00s
+            </strong>
+          </div>
+
+          <div>
+            <div class="mb-2 flex flex-wrap gap-1 items-center justify-between">
+              <span class="text-sm font-medium text-white/80">Registrovaní bežci</span>
+              <strong id="regText" class="text-sm font-semibold text-white">742 / 1000</strong>
+            </div>
+            <div class="h-2.5 w-full overflow-hidden rounded-full bg-white/20">
+              <div id="regBar" class="h-full w-[74.2%] rounded-full bg-green transition-all duration-500"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <%= link_to new_registration_path, class: "group relative overflow-hidden btn-red" do %>
+            <div class="pointer-events-none absolute inset-y-0 -left-[40%] w-1/3 -skew-x-12 bg-white/30 group-hover:translate-x-[450%] group-hover:transition-transform group-hover:duration-800 group-hover:ease-out"></div>
+            <span class="relative z-10">Registrácia</span>
+          <% end %>
+
+          <a href="/#course" class="btn-outline">
+            Pozrieť trasu
+          </a>
+        </div>
+      </div>
+
+      <div class="order-2 mx-auto w-full max-w-[240px] max-sm:mt-2 lg:order-2 lg:mx-0 lg:max-w-[300px]">
+        <div class="overflow-hidden rounded-2xl bg-white/10 p-2">
+          <%= image_tag "manrunning.png", alt: "Bežec na lesnej trase", class: "h-[340px] w-full object-contain object-center lg:h-[420px]" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
