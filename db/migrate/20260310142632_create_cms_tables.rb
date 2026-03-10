@@ -15,11 +15,8 @@ class CreateCmsTables < ActiveRecord::Migration[8.1]
       t.string :title, null: false
       t.string :slug, null: false
 
-      # Using 'content' instead of ops's 'text' and 'raw' approach for simplicity,
-      # but you can rename this to 'text' if you want to perfectly match the ops schema.
       t.text :content, null: false
 
-      # Using a simple boolean for publishing instead of ops's Postgres Array tags
       t.boolean :published, default: false, null: false
 
       t.timestamps
