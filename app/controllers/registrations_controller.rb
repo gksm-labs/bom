@@ -1,5 +1,10 @@
 class RegistrationsController < ApplicationController
+  REGISTRATION_OPEN = false # TODO: dynamic event (#11)
+
+  before_action :require_open_registration!, only: [ :create ]
+
   def new
+    @registration_closed = !REGISTRATION_OPEN
     @registration = Registration.new
     @starting_step = 1
   end
@@ -19,6 +24,12 @@ class RegistrationsController < ApplicationController
   end
 
   private
+
+  def require_open_registration!
+    return if REGISTRATION_OPEN
+
+    redirect_to root_path, alert: "Registrácia je momentálne uzavretá."
+  end
 
   def registration_params
     params.require(:registration).permit(
