@@ -26,6 +26,8 @@ class Edition < ApplicationRecord
   validates :year, :date, :max_capacity, presence: true
   validates :year, uniqueness: true
 
+  validates :max_capacity, numericality: { greater_than: 0 }
+
   def self.current
     where(published: true).where("date >= ?", Date.current).order(:date).first ||
       where(published: true).order(date: :desc).first

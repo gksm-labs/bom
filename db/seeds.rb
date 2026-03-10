@@ -1,9 +1,9 @@
 current_year = Date.current.year
 
-edition = Edition.create!(
+edition = Edition.find_or_create_by!(
   year: current_year,
-  date: Time.zone.local(current_year, 6, 20, 9, 0, 0), # 20. Jún o 9:00
-  registration_starts_at: Time.zone.now.beginning_of_day - 1.week, # Registrácia beží už týždeň
+  date: Time.zone.local(current_year, 6, 20, 9, 0, 0),
+  registration_starts_at: Time.zone.now.beginning_of_day - 1.week,
   registration_ends_at: Time.zone.local(current_year, 6, 18, 23, 59, 59),
   max_capacity: 500,
   entry_fee: 15.00,
