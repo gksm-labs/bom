@@ -41,10 +41,6 @@ class Edition < ApplicationRecord
   end
 
   def capacity_reached?
-    registrations.count >= max_capacity
-  end
-
-  def registered_count
-    registrations.size
+    registrations_count >= max_capacity
   end
 end

@@ -21,10 +21,10 @@
 
       <div class="flex w-full items-center gap-3 sm:max-w-[340px]">
         <span class="shrink-0 text-xs text-slate-600">
-          Prihlásených <strong class="text-primary font-bold"><%= current_edition.registered_count %></strong> z <strong class="text-slate-800"><%= current_edition.max_capacity %></strong> bežcov
+          Prihlásených <strong class="text-primary font-bold"><%= current_edition.registrations_count %></strong> z <strong class="text-slate-800"><%= current_edition.max_capacity %></strong> bežcov
         </span>
         <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
-          <% percentage = (current_edition.registered_count.to_f / current_edition.max_capacity * 100).clamp(0, 100) %>
+          <% percentage = (current_edition.registrations_count.to_f / current_edition.max_capacity * 100).clamp(0, 100) %>
           <div class="h-full rounded-full transition-all duration-1000 <%= current_edition.registration_open? ? 'bg-primary' : 'bg-slate-400' %>" style="width: <%= percentage %>%"></div>
         </div>
       </div>
