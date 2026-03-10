@@ -1,16 +1,13 @@
 class RegistrationsController < ApplicationController
-  REGISTRATION_OPEN = false # TODO: dynamic event (#11)
-
-  before_action :require_open_registration!, only: [ :create ]
+  before_action :ensure_registration_open
 
   def new
-    @registration_closed = !REGISTRATION_OPEN
-    @registration = Registration.new
+    @registration = @current_edition.registrations.build
     @starting_step = 1
   end
 
   def create
-    @registration = Registration.new(registration_params)
+    @registration = @current_edition.registrations.build(registration_params)
 
     if @registration.save
       respond_to do |format|
@@ -25,16 +22,18 @@ class RegistrationsController < ApplicationController
 
   private
 
-  def require_open_registration!
-    return if REGISTRATION_OPEN
-
-    redirect_to root_path, alert: "Registrácia je momentálne uzavretá."
+  def ensure_registration_open
+    unless @current_edition&.registration_open?
+      @registration_closed = true
+      @starting_step = 1
+      render :new, status: :forbidden
+    end
   end
 
   def registration_params
     params.require(:registration).permit(
       :first_name, :last_name, :birth_date, :gender, :city,
-      :phone, :email, :discipline, :category, :club, :t_shirt_size,
+      :phone, :email, :discipline, :club, :t_shirt_size,
       :gdpr_consent, :terms_consent
     )
   end
@@ -42,7 +41,7 @@ class RegistrationsController < ApplicationController
   def calculate_starting_step(registration)
     err_keys = registration.errors.map(&:attribute)
     step1_fields = [ :first_name, :last_name, :birth_date, :email, :phone, :gender, :city ]
-    step2_fields = [ :discipline, :category, :t_shirt_size, :club ]
+    step2_fields = [ :discipline, :t_shirt_size, :club ]
 
     if err_keys.intersect?(step1_fields)
       1

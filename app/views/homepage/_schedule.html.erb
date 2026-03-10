@@ -8,50 +8,25 @@
 
   <div class="mt-10 grid gap-4 sm:gap-5">
     <div class="rounded-2xl bg-white p-5 sm:p-6">
-      <ol class="space-y-4">
-        <li class="flex items-start gap-4">
-          <div class="min-w-20 rounded-md bg-primary px-3 py-1.5 text-center text-sm font-bold text-white">07:30</div>
-          <div>
-            <p class="font-semibold text-slate-900">Otvorenie areálu a registrácia</p>
-            <p class="text-sm text-slate-600">Prezentácia účastníkov, vyzdvihnutie štartových balíčkov.</p>
-          </div>
-        </li>
-        <li class="flex items-start gap-4">
-          <div class="min-w-20 rounded-md bg-primary px-3 py-1.5 text-center text-sm font-bold text-white">08:45</div>
-          <div>
-            <p class="font-semibold text-slate-900">Rozcvička</p>
-            <p class="text-sm text-slate-600">Spoločná dynamická rozcvička pri štartovej bráne.</p>
-          </div>
-        </li>
-        <li class="flex items-start gap-4">
-          <div class="min-w-20 rounded-md bg-red px-3 py-1.5 text-center text-sm font-bold text-white">09:00</div>
-          <div>
-            <p class="font-semibold text-slate-900">Štart hlavného behu (10 km)</p>
-            <p class="text-sm text-slate-600">Hromadný štart všetkých registrovaných pretekárov.</p>
-          </div>
-        </li>
-        <li class="flex items-start gap-4">
-          <div class="min-w-20 rounded-md bg-green px-3 py-1.5 text-center text-sm font-bold text-white">09:20</div>
-          <div>
-            <p class="font-semibold text-slate-900">Štart hobby behu (5 km)</p>
-            <p class="text-sm text-slate-600">Voľnejšie tempo, ideálne pre rekreačných bežcov.</p>
-          </div>
-        </li>
-        <li class="flex items-start gap-4">
-          <div class="min-w-20 rounded-md bg-primary px-3 py-1.5 text-center text-sm font-bold text-white">11:00</div>
-          <div>
-            <p class="font-semibold text-slate-900">Detské behy</p>
-            <p class="text-sm text-slate-600">Kategórie podľa veku, bezpečný okruh pri areáli.</p>
-          </div>
-        </li>
-        <li class="flex items-start gap-4">
-          <div class="min-w-20 rounded-md bg-primary px-3 py-1.5 text-center text-sm font-bold text-white">12:00</div>
-          <div>
-            <p class="font-semibold text-slate-900">Vyhlásenie výsledkov</p>
-            <p class="text-sm text-slate-600">Ocenenie víťazov kategórií a tombola.</p>
-          </div>
-        </li>
-      </ol>
+      <% if @current_edition&.schedule_items&.any? %>
+        <ol class="space-y-4">
+          <% @current_edition.schedule_items.each do |item| %>
+            <li class="flex items-start gap-4">
+              <div class="min-w-20 rounded-md bg-<%= item.badge_color %> px-3 py-1.5 text-center text-sm font-bold text-white">
+                <%= item.start_time.strftime("%H:%M") %>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900"><%= item.title %></p>
+                <% if item.description.present? %>
+                  <p class="text-sm text-slate-600"><%= item.description %></p>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ol>
+      <% else %>
+        <p class="text-slate-600 italic">Program bude čoskoro zverejnený.</p>
+      <% end %>
     </div>
   </div>
 </div>

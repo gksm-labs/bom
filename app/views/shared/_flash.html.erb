@@ -1,0 +1,10 @@
+<% if flash.any? %>
+  <div class="fixed top-4 left-1/2 z-[100] flex -translate-x-1/2 flex-col gap-2 w-full max-w-md px-4 pointer-events-none">
+    <% flash.each do |key, message| %>
+      <% css_class = key.to_s == 'notice' ? 'bg-green/90 border-green' : 'bg-red/90 border-red' %>
+      <div class="pointer-events-auto flex items-center justify-between rounded-lg border px-4 py-3 text-white shadow-lg backdrop-blur-sm <%= css_class %>" role="alert">
+        <span class="text-sm font-semibold"><%= message %></span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_09_215627) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_105624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "editions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "date", null: false
+    t.decimal "entry_fee", precision: 8, scale: 2, default: "10.0"
+    t.integer "max_capacity", default: 500
+    t.datetime "registration_ends_at"
+    t.datetime "registration_starts_at"
+    t.datetime "updated_at", null: false
+    t.integer "year", null: false
+    t.index ["year"], name: "index_editions_on_year", unique: true
+  end
 
   create_table "registrations", force: :cascade do |t|
     t.date "birth_date", null: false
@@ -21,6 +33,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_09_215627) do
     t.string "club"
     t.datetime "created_at", null: false
     t.string "discipline", null: false
+    t.bigint "edition_id", null: false
     t.string "email", null: false
     t.string "first_name", null: false
     t.boolean "gdpr_consent", default: false, null: false
@@ -30,5 +43,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_09_215627) do
     t.string "t_shirt_size", null: false
     t.boolean "terms_consent", default: false, null: false
     t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_registrations_on_edition_id"
   end
+
+  create_table "schedule_items", force: :cascade do |t|
+    t.string "badge_color"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.bigint "edition_id", null: false
+    t.time "start_time"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_schedule_items_on_edition_id"
+  end
+
+  add_foreign_key "registrations", "editions"
+  add_foreign_key "schedule_items", "editions"
 end

@@ -18,11 +18,21 @@
 #  terms_consent :boolean          default(FALSE), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  edition_id    :bigint           not null
+#
+# Indexes
+#
+#  index_registrations_on_edition_id  (edition_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (edition_id => editions.id)
 #
 class Registration < ApplicationRecord
-  enum :gender, { male: "M", female: "F", unstated: "N" }, validate: true
+  belongs_to :edition
+
+  enum :gender, { male: "M", female: "F" }, validate: true
   enum :discipline, { main_10km: "10km", hobby_5km: "5km" }, validate: true
-  enum :category, { men: "M", women: "F" }, validate: true
   enum :t_shirt_size, { xs: "XS", s: "S", m: "M", l: "L", xl: "XL", xxl: "XXL" }, validate: true
 
   validates :first_name, :last_name, :birth_date,
@@ -31,4 +41,23 @@ class Registration < ApplicationRecord
 
   validates :gdpr_consent, :terms_consent,
             acceptance: true
+
+  validate :edition_must_be_open_for_registration, on: :create
+
+  before_validation :assign_category, if: -> { birth_date.present? && gender.present? && edition.present? }
+
+  private
+
+  def assign_category
+    age = edition.date.year - birth_date.year
+    prefix = gender == "male" ? "M" : "F"
+
+    self.category = age < 40 ? "#{prefix}39" : "#{prefix}40+"
+  end
+
+  def edition_must_be_open_for_registration
+    unless edition&.registration_open?
+      errors.add(:base, :registration_closed)
+    end
+  end
 end
