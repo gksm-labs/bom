@@ -5,7 +5,7 @@
 >
   <nav class="mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
     <a href="/">
-      <%= image_tag "logo.png", alt: "logo", class: "h-12 w-auto" %>
+      <%= image_tag "logo.png", alt: "Beh okolo Modry", class: "h-12 w-auto" %>
     </a>
 
     <ul class="hidden items-center gap-6 font-semibold md:flex">
@@ -25,7 +25,8 @@
       type="button"
       data-mobile-menu-target="button"
       data-action="click->mobile-menu#open"
-      aria-label="open menu"
+      aria-controls="mobile-menu-overlay"
+      aria-label="Otvoriť menu"
       aria-expanded="false"
       class="rounded-md border-2 border-white/30 hover:border-white hover:bg-white hover:text-primary font-bold transition-colors duration-100 px-3 py-2 text-sm md:hidden"
     >
@@ -33,7 +34,10 @@
     </button>
 
     <div
+      id="mobile-menu-overlay"
       data-mobile-menu-target="menu"
+      aria-hidden="true"
+      inert
       class="pointer-events-none fixed inset-0 bg-primary/95 backdrop-blur-sm opacity-0 transition-opacity duration-100 md:hidden"
     >
       <div
@@ -42,7 +46,7 @@
       >
         <div class="flex items-center justify-between">
           <a href="/">
-            <%= image_tag "logo.png", alt: "logo", class: "h-12 w-auto" %>
+            <%= image_tag "logo.png", alt: "Beh okolo Modry", class: "h-12 w-auto" %>
           </a>
           <button
             type="button"
