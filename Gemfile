@@ -68,3 +68,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 4.4"
+
+gem "enum_help", "~> 0.0.20"

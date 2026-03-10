@@ -1,0 +1,12 @@
+<div data-form-stepper-target="panel" class="step-panel">
+  <h3 class="font-display font-bold text-2xl text-primary">Osobné údaje</h3>
+  <div class="mt-4 grid gap-4 sm:grid-cols-2">
+    <%= f.tailwind_input :first_name %>
+    <%= f.tailwind_input :last_name %>
+    <%= f.tailwind_input :birth_date, type: :date_field %>
+    <%= f.tailwind_input :email, type: :email_field %>
+    <%= f.tailwind_input :phone, type: :telephone_field %>
+    <%= f.tailwind_input :gender, type: :select, collection: Registration.genders_i18n.invert %>
+    <%= f.tailwind_input :city %>
+  </div>
+</div>

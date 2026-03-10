@@ -1,9 +1,25 @@
 <%= form_with model: registration,
-              id: "raceRegistrationForm",
-              class: "rounded-2xl bg-white p-4 shadow-sm sm:p-8",
-              data: { controller: "form-stepper" } do |f| %>
+              id: "registration-form",
+              builder: TailwindFormBuilder,
+              class: "rounded-2xl bg-white p-4 shadow-sm sm:p-8 scroll-mt-24",
+              data: {
+                controller: "form-stepper",
+                form_stepper_step_value: @starting_step || 1,
+                form_stepper_labels_value: ["Osobné údaje", "Údaje o behu", "Potvrdenie"]
+              } do |f| %>
 
-  <div id="formProgressHeader" class="mb-8">
+  <% if f.object.errors.any? %>
+    <div class="mb-6 rounded-xl bg-red/10 p-5 border border-red/20">
+      <h3 class="text-sm font-bold text-red">Pred odoslaním prosím opravte nasledujúce chyby:</h3>
+      <ul class="mt-2 list-disc pl-5 space-y-1 text-sm text-red/90 font-medium">
+        <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-8">
     <div class="select-none flex items-center gap-2 sm:gap-4">
       <% 3.times do |i| %>
         <div data-form-stepper-target="dot" class="step-dot flex h-8 w-8 items-center transition-all duration-300 justify-center rounded-full bg-slate-300 text-xs font-bold text-slate-700 sm:h-9 sm:w-9 sm:text-sm">
@@ -18,80 +34,13 @@
     </p>
   </div>
 
-  <div data-form-stepper-target="panel" class="step-panel">
-    <h3 class="font-display font-bold text-2xl text-primary">Osobné údaje</h3>
-    <div class="mt-4 grid gap-4 sm:grid-cols-2">
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Meno *</span>
-        <%= f.text_field :first_name, required: true, class: "rounded-md border border-slate-300 px-3 py-2" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Priezvisko *</span>
-        <%= f.text_field :last_name, required: true, class: "rounded-md border border-slate-300 px-3 py-2" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Dátum narodenia *</span>
-        <%= f.date_field :birth_date, required: true, class: "rounded-md border border-slate-300 px-3 py-2" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">E-mail *</span>
-        <%= f.email_field :email, required: true, class: "rounded-md border border-slate-300 px-3 py-2" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Telefón *</span>
-        <%= f.telephone_field :phone, required: true, class: "rounded-md border border-slate-300 px-3 py-2" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Pohlavie *</span>
-        <%= f.select :gender, [["Muž", "muz"], ["Žena", "zena"], ["Nechcem uviesť", "neurcene"]], { prompt: "Vyberte" }, required: true, class: "rounded-md border border-slate-300 px-3 py-2 bg-white" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Mesto/Obec *</span>
-        <%= f.text_field :city, required: true, class: "rounded-md border border-slate-300 px-3 py-2" %>
-      </label>
-    </div>
-  </div>
-
-  <div data-form-stepper-target="panel" class="step-panel hidden">
-    <h3 class="font-display font-bold text-2xl text-primary">Údaje o behu</h3>
-    <div class="mt-4 grid gap-4 sm:grid-cols-2">
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Disciplína *</span>
-        <%= f.select :discipline, [["Hlavný beh 10 km", "10km"], ["Hobby beh 5 km", "5km"]], { prompt: "Vyberte" }, required: true, class: "rounded-md border border-slate-300 px-3 py-2 bg-white" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Kategória *</span>
-        <%= f.select :category, [["Muži", "M"], ["Ženy", "Z"]], { prompt: "Vyberte" }, required: true, class: "rounded-md border border-slate-300 px-3 py-2 bg-white" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Veľkosť trička *</span>
-        <%= f.select :t_shirt_size, %w[XS S M L XL XXL], { prompt: "Vyberte" }, required: true, class: "rounded-md border border-slate-300 px-3 py-2 bg-white" %>
-      </label>
-      <label class="grid gap-1">
-        <span class="text-sm font-medium text-slate-700">Klub / tím</span>
-        <%= f.text_field :club, class: "rounded-md border border-slate-300 px-3 py-2" %>
-      </label>
-    </div>
-  </div>
-
-  <div data-form-stepper-target="panel" class="step-panel hidden">
-    <h3 class="font-display font-bold text-2xl text-primary">Potvrdenie a súhlasy</h3>
-    <div class="mt-5 space-y-3 rounded-xl bg-slate-50 p-4">
-      <label class="flex items-start gap-3">
-        <%= f.check_box :gdpr_consent, required: true, class: "mt-1 h-4 w-4 accent-red" %>
-        <span class="text-sm text-slate-700">Súhlasím so spracovaním osobných údajov (GDPR). *</span>
-      </label>
-      <label class="flex items-start gap-3">
-        <%= f.check_box :terms_consent, required: true, class: "mt-1 h-4 w-4 accent-red" %>
-        <span class="text-sm text-slate-700">Súhlasím s pravidlami a propozíciami podujatia. *</span>
-      </label>
-    </div>
-  </div>
+  <%= render "registrations/steps/personal_data", f: f %>
+  <%= render "registrations/steps/run_data", f: f %>
+  <%= render "registrations/steps/confirmation", f: f %>
 
   <div class="mt-8 flex items-center gap-3">
-    <button type="button" data-form-stepper-target="prevBtn" data-action="click->form-stepper#prev" class="hidden btn-outline !bg-slate-200 !text-slate-700 hover:!bg-slate-300">Späť</button>
-    <button type="button" data-form-stepper-target="nextBtn" data-action="click->form-stepper#next" class="btn-red !bg-primary">Pokračovať</button>
-    <%= f.button "Odoslať registráciu", data: { form_stepper_target: "submitBtn" }, class: "hidden btn-red" %>
+    <%= button_tag "Späť", type: "button", data: { form_stepper_target: "prevBtn", action: "click->form-stepper#prev" }, class: "hidden cursor-pointer btn-outline !bg-slate-200 !text-slate-700 hover:!bg-slate-300" %>
+    <%= button_tag "Pokračovať", type: "button", data: { form_stepper_target: "nextBtn", action: "click->form-stepper#next" }, class: "cursor-pointer btn-red !bg-primary" %>
+    <%= f.button "Odoslať registráciu", data: { form_stepper_target: "submitBtn" }, class: "hidden cursor-pointer btn-red" %>
   </div>
-
 <% end %>

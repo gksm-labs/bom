@@ -2,25 +2,32 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
     static targets = ["panel", "dot", "prevBtn", "nextBtn", "submitBtn", "currentStepText", "currentStepLabel"]
-    static values = { step: { type: Number, default: 1 } }
+
+    static values = {
+        step: { type: Number, default: 1 },
+        labels: { type: Array, default: [] }
+    }
 
     connect() {
-        this.labels = ["Osobné údaje", "Údaje o behu", "Potvrdenie"]
         this.updateView()
+    }
+
+    get totalSteps() {
+        return this.panelTargets.length
     }
 
     next() {
         if (this.validateCurrentStep()) {
-            this.stepValue = Math.min(3, this.stepValue + 1)
+            this.stepValue = Math.min(this.totalSteps, this.stepValue + 1)
             this.updateView()
-            this.scrollToTop()
+            this.scrollToCenter()
         }
     }
 
     prev() {
         this.stepValue = Math.max(1, this.stepValue - 1)
         this.updateView()
-        this.scrollToTop()
+        this.scrollToCenter()
     }
 
     validateCurrentStep() {
@@ -48,17 +55,22 @@ export default class extends Controller {
             dot.classList.toggle("text-slate-700", !active)
         })
 
-        if (this.hasCurrentStepTextTarget) this.currentStepTextTarget.textContent = this.stepValue
-        if (this.hasCurrentStepLabelTarget) this.currentStepLabelTarget.textContent = this.labels[this.stepValue - 1]
+        if (this.hasCurrentStepTextTarget) {
+            this.currentStepTextTarget.textContent = this.stepValue
+        }
+
+        if (this.hasCurrentStepLabelTarget && this.labelsValue.length > 0) {
+            this.currentStepLabelTarget.textContent = this.labelsValue[this.stepValue - 1]
+        }
 
         this.prevBtnTarget.classList.toggle("hidden", this.stepValue === 1)
-        this.nextBtnTarget.classList.toggle("hidden", this.stepValue === 3)
-        this.submitBtnTarget.classList.toggle("hidden", this.stepValue !== 3)
+        this.nextBtnTarget.classList.toggle("hidden", this.stepValue === this.totalSteps)
+        this.submitBtnTarget.classList.toggle("hidden", this.stepValue !== this.totalSteps)
     }
 
-    scrollToTop() {
+    scrollToCenter() {
         requestAnimationFrame(() => {
-            this.element.scrollIntoView({ behavior: "smooth", block: "start" })
+            this.element.scrollIntoView({ behavior: "smooth", block: "center" })
         })
     }
 }
