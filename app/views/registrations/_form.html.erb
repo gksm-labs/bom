@@ -1,0 +1,46 @@
+<%= form_with model: registration,
+              id: "registration-form",
+              builder: TailwindFormBuilder,
+              class: "rounded-2xl bg-white p-4 shadow-sm sm:p-8 scroll-mt-24",
+              data: {
+                controller: "form-stepper",
+                form_stepper_step_value: @starting_step || 1,
+                form_stepper_labels_value: ["Osobné údaje", "Údaje o behu", "Potvrdenie"]
+              } do |f| %>
+
+  <% if f.object.errors.any? %>
+    <div class="mb-6 rounded-xl bg-red/10 p-5 border border-red/20">
+      <h3 class="text-sm font-bold text-red">Pred odoslaním prosím opravte nasledujúce chyby:</h3>
+      <ul class="mt-2 list-disc pl-5 space-y-1 text-sm text-red/90 font-medium">
+        <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-8">
+    <div class="select-none flex items-center gap-2 sm:gap-4">
+      <% 3.times do |i| %>
+        <div data-form-stepper-target="dot" class="step-dot flex h-8 w-8 items-center transition-all duration-300 justify-center rounded-full bg-slate-300 text-xs font-bold text-slate-700 sm:h-9 sm:w-9 sm:text-sm">
+          <%= i + 1 %>
+        </div>
+        <% if i < 2 %><div class="h-1 flex-1 rounded bg-slate-200"></div><% end %>
+      <% end %>
+    </div>
+    <p class="mt-3 text-sm text-slate-600">
+      Krok <span data-form-stepper-target="currentStepText">1</span> z 3:
+      <span data-form-stepper-target="currentStepLabel" class="font-semibold text-slate-800">Osobné údaje</span>
+    </p>
+  </div>
+
+  <%= render "registrations/steps/personal_data", f: f %>
+  <%= render "registrations/steps/run_data", f: f %>
+  <%= render "registrations/steps/confirmation", f: f %>
+
+  <div class="mt-8 flex items-center gap-3">
+    <%= button_tag "Späť", type: "button", data: { form_stepper_target: "prevBtn", action: "click->form-stepper#prev" }, class: "hidden cursor-pointer btn-outline !bg-slate-200 !text-slate-700 hover:!bg-slate-300" %>
+    <%= button_tag "Pokračovať", type: "button", data: { form_stepper_target: "nextBtn", action: "click->form-stepper#next" }, class: "cursor-pointer btn-red !bg-primary" %>
+    <%= f.button "Odoslať registráciu", data: { form_stepper_target: "submitBtn" }, class: "hidden cursor-pointer btn-red" %>
+  </div>
+<% end %>
