@@ -25,7 +25,7 @@ sk:
         registration:
           attributes:
             base:
-              registration_closed: "Registrácia na toto podujatie je momentálne uzavretá."
+              registration_closed: "Registrácia je momentálne uzavretá."
 
             first_name:
               blank: "nemôže byť prázdne"
