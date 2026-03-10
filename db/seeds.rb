@@ -1,6 +1,6 @@
 current_year = Date.current.year
 
-edition = Edition.find_or_create_by!(
+edition = Edition.create!(
   year: current_year,
   date: Time.zone.local(current_year, 6, 20, 9, 0, 0),
   registration_starts_at: Time.zone.now.beginning_of_day - 1.week,
