@@ -24,6 +24,9 @@ sk:
       models:
         registration:
           attributes:
+            base:
+              registration_closed: "Registrácia je momentálne uzavretá."
+
             first_name:
               blank: "nemôže byť prázdne"
             last_name:
@@ -41,8 +44,6 @@ sk:
               inclusion: "musí byť jedna z možností"
             discipline:
               inclusion: "musí byť jedna z možností"
-            category:
-              inclusion: "musí byť jedna z možností"
             t_shirt_size:
               inclusion: "musí byť jedna z možností"
 
@@ -56,10 +57,6 @@ sk:
       gender:
         male: "Muž"
         female: "Žena"
-        unstated: "Nechcem uviesť"
       discipline:
         main_10km: "10 km Hlavný beh"
         hobby_5km: "5 km Hobby beh"
-      category:
-        men: "Muži"
-        women: "Ženy"
