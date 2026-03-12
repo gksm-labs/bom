@@ -28,11 +28,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-background text-foreground font-sans">
+  <body class="bg-background text-foreground font-sans flex flex-col min-h-screen">
     <%= render "shared/header" %>
     <%= render "shared/flash" %>
 
-    <main>
+    <main class="flex-grow">
       <%= yield %>
     </main>
 
