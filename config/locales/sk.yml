@@ -1,4 +1,46 @@
 sk:
+  date:
+    formats:
+      default: "%d. %m. %Y"
+      short: "%d. %m."
+      long: "%d. %B %Y"
+    day_names:
+      - Nedeľa
+      - Pondelok
+      - Utorok
+      - Streda
+      - Štvrtok
+      - Piatok
+      - Sobota
+    abbr_day_names:
+      - Ne
+      - Po
+      - Ut
+      - St
+      - Št
+      - Pi
+      - So
+    month_names:
+      - ~
+      - Január
+      - Február
+      - Marec
+      - Apríl
+      - Máj
+      - Jún
+      - Júl
+      - August
+      - September
+      - Október
+      - November
+      - December
+
+  time:
+    formats:
+      default: "%d. %m. %Y %H:%M"
+      short: "%d. %m. %H:%M"
+      long: "%d. %B %Y %H:%M"
+
   helpers:
     select:
       prompt: "Vyberte"
